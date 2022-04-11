@@ -5,11 +5,16 @@
 class Entity
 {
 public:
-	Entity(double x, double y, SDL_Texture* tex);
+	Entity(float x, float y, SDL_Texture* texture);
 	void init();
 
+	float getX() { return x; };
+	float getY() { return y; };
+	SDL_Texture* getTex() { return tex; };
+	SDL_Rect getCurrentFrame() { return currentFrame; };
+
 private:
-	double x, y;
+	float x, y;
 	SDL_Rect currentFrame;
 	SDL_Texture* tex;
 };
