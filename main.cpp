@@ -6,8 +6,6 @@
 #include "RenderWindow.h"
 #include "Entity.h"
 
-using namespace std;
-
 int main(int argc, char* args[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) > 0)
@@ -22,17 +20,17 @@ int main(int argc, char* args[])
 	SDL_Texture* grassTexture = window.loadTexture("res/gfx/ground_grass_1.png");
 
 	//Floor entity
-	vector<Entity> floor = {	Entity(0, 150, grassTexture),
-								Entity(30, 150, grassTexture),
-								Entity(60, 150, grassTexture),
-								Entity(90, 150, grassTexture),
-								Entity(120, 150, grassTexture),
-								Entity(150, 150, grassTexture),
-								Entity(180, 150, grassTexture),
-								Entity(210, 150, grassTexture),
-								Entity(240, 150, grassTexture),
-								Entity(270, 150, grassTexture),
-								Entity(300, 150, grassTexture),
+	std::vector<Entity> platform = {Entity(0, 150, grassTexture),
+									Entity(30, 150, grassTexture),
+									Entity(60, 150, grassTexture),
+									Entity(90, 150, grassTexture),
+									Entity(120, 150, grassTexture),
+									Entity(150, 150, grassTexture),
+									Entity(180, 150, grassTexture),
+									Entity(210, 150, grassTexture),
+									Entity(240, 150, grassTexture),
+									Entity(270, 150, grassTexture),
+									Entity(300, 150, grassTexture),
 	};
 	
 
@@ -52,9 +50,10 @@ int main(int argc, char* args[])
 
 		window.clear();
 		
-		for (int i = 0; i < floor.size(); ++i)
+		//Render platform
+		for (Entity& e : platform)
 		{
-			window.render(floor[i]);
+			window.render(e);
 		}
 		window.display();
 	}
