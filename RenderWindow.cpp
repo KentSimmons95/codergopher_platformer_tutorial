@@ -40,7 +40,19 @@ void RenderWindow::clear()
 
 void RenderWindow::render(SDL_Texture* tex)
 {
-	SDL_RenderCopy(renderer, tex, NULL, NULL);
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+	src.w = 32;
+	src.h = 32;
+
+	SDL_Rect dst;
+	dst.x = 0;
+	dst.y = 0;
+	dst.w = 32;
+	dst.h = 32;
+
+	SDL_RenderCopy(renderer, tex, &src, &dst);
 }
 
 void RenderWindow::display()
