@@ -20,17 +20,17 @@ int main(int argc, char* args[])
 	SDL_Texture* grassTexture = window.loadTexture("res/gfx/ground_grass_1.png");
 
 	//Floor entity
-	std::vector<Entity> platform = {Entity(0, 150, grassTexture),
-									Entity(30, 150, grassTexture),
-									Entity(60, 150, grassTexture),
-									Entity(90, 150, grassTexture),
-									Entity(120, 150, grassTexture),
-									Entity(150, 150, grassTexture),
-									Entity(180, 150, grassTexture),
-									Entity(210, 150, grassTexture),
-									Entity(240, 150, grassTexture),
-									Entity(270, 150, grassTexture),
-									Entity(300, 150, grassTexture),
+	std::vector<Entity> platform = {Entity(Vector2f(0, 150), grassTexture),
+									Entity(Vector2f(30, 150), grassTexture),
+									Entity(Vector2f(60, 150), grassTexture),
+									Entity(Vector2f(90, 150), grassTexture),
+									Entity(Vector2f(120, 150), grassTexture),
+									Entity(Vector2f(150, 150), grassTexture),
+									Entity(Vector2f(180, 150), grassTexture),
+									Entity(Vector2f(210, 150), grassTexture),
+									Entity(Vector2f(240, 150), grassTexture),
+									Entity(Vector2f(270, 150), grassTexture),
+									Entity(Vector2f(300, 150), grassTexture),
 	};
 	
 
@@ -50,7 +50,7 @@ int main(int argc, char* args[])
 
 		window.clear();
 		
-		//Render platform
+		//Render platforms
 		for (Entity& e : platform)
 		{
 			window.render(e);
