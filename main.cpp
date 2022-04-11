@@ -1,9 +1,12 @@
 #include <cstdio>
+#include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
 
 #include "RenderWindow.h"
 #include "Entity.h"
+
+using namespace std;
 
 int main(int argc, char* args[])
 {
@@ -18,7 +21,20 @@ int main(int argc, char* args[])
 
 	SDL_Texture* grassTexture = window.loadTexture("res/gfx/ground_grass_1.png");
 
-	Entity platform0(100, 50, grassTexture);
+	//Floor entity
+	vector<Entity> floor = {	Entity(0, 150, grassTexture),
+								Entity(30, 150, grassTexture),
+								Entity(60, 150, grassTexture),
+								Entity(90, 150, grassTexture),
+								Entity(120, 150, grassTexture),
+								Entity(150, 150, grassTexture),
+								Entity(180, 150, grassTexture),
+								Entity(210, 150, grassTexture),
+								Entity(240, 150, grassTexture),
+								Entity(270, 150, grassTexture),
+								Entity(300, 150, grassTexture),
+	};
+	
 
 	bool gameRunning = true;
 
@@ -35,7 +51,11 @@ int main(int argc, char* args[])
 		}
 
 		window.clear();
-		window.render(platform0);
+		
+		for (int i = 0; i < floor.size(); ++i)
+		{
+			window.render(floor[i]);
+		}
 		window.display();
 	}
 
