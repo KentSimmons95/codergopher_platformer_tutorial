@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 
 #include "RenderWindow.h"
+#include "Entity.h"
 
 RenderWindow::RenderWindow(const char* title, int w, int h)
 	:window(NULL), renderer(NULL)
@@ -38,21 +39,21 @@ void RenderWindow::clear()
 	SDL_RenderClear(renderer);
 }
 
-void RenderWindow::render(SDL_Texture* tex)
+void RenderWindow::render(Entity& entity)
 {
 	SDL_Rect src;
-	src.x = 0;
-	src.y = 0;
-	src.w = 32;
-	src.h = 32;
+	src.x = entity.getCurrentFrame().x;
+	src.y = entity.getCurrentFrame().y;
+	src.w = entity.getCurrentFrame().w;
+	src.h = entity.getCurrentFrame().h;
 
 	SDL_Rect dst;
-	dst.x = 0;
-	dst.y = 0;
-	dst.w = 32;
-	dst.h = 32;
+	dst.x = entity.getX() * 4;
+	dst.y = entity.getY() * 4;
+	dst.w = entity.getCurrentFrame().w * 4;
+	dst.h = entity.getCurrentFrame().w * 4;
 
-	SDL_RenderCopy(renderer, tex, &src, &dst);
+	SDL_RenderCopy(renderer, entity.getTex(), &src, &dst);
 }
 
 void RenderWindow::display()
