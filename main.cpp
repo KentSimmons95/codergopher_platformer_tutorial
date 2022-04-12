@@ -5,6 +5,7 @@
 
 #include "RenderWindow.h"
 #include "Entity.h"
+#include "Utils.h"
 
 int main(int argc, char* args[])
 {
@@ -16,7 +17,7 @@ int main(int argc, char* args[])
 		printf("Failed to initialise IMG_Init, Error: %s", SDL_GetError());
 
 	RenderWindow window("GAME v1.0", 1280, 720);
-
+	
 	SDL_Texture* grassTexture = window.loadTexture("res/gfx/ground_grass_1.png");
 
 	//Floor entity
@@ -38,15 +39,33 @@ int main(int argc, char* args[])
 
 	SDL_Event event;
 
+	const float timeStep = 0.01f;
+	float accumulator = 0.0f;
+	float currentTime = utils::hireTimeInSeconds();
+
 	while (gameRunning)
 	{
-		while (SDL_PollEvent(&event))
+		int startTicks = SDL_GetTicks();
+		float newTime = utils::hireTimeInSeconds();
+		float frameTime = newTime - currentTime;
+
+		currentTime = newTime;
+
+		accumulator += frameTime;
+
+		while (accumulator >= timeStep)
 		{
-			if (event.type == SDL_QUIT)
+			while (SDL_PollEvent(&event))
 			{
-				gameRunning = false;
+				if (event.type == SDL_QUIT)
+				{
+					gameRunning = false;
+				}
 			}
+			accumulator -= timeStep;
 		}
+
+		const float alpha = accumulator / timeStep;
 
 		window.clear();
 		
@@ -55,7 +74,12 @@ int main(int argc, char* args[])
 		{
 			window.render(e);
 		}
+
 		window.display();
+
+		int frameTicks = SDL_GetTicks() - startTicks;
+		if (frameTicks < 1000 / window.getRefreshRate())
+			SDL_Delay(window.getRefreshRate() - frameTicks);
 	}
 
 	window.cleanUp();

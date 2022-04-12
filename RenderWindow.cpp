@@ -18,6 +18,17 @@ RenderWindow::RenderWindow(const char* title, int w, int h)
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
+int RenderWindow::getRefreshRate()
+{
+	int displayIndex = SDL_GetWindowDisplayIndex(window);
+
+	SDL_DisplayMode mode;
+
+	SDL_GetDisplayMode(displayIndex, 0, &mode);
+
+	return mode.refresh_rate;
+}
+
 SDL_Texture* RenderWindow::loadTexture(const char* file_path)
 {
 	SDL_Texture* texture = NULL;
